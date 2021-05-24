@@ -1,0 +1,106 @@
+import discord
+from discord.ext import commands
+import inspect
+
+pcount = 0
+
+
+class Portals(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
+    @commands.group(name='add')
+    @commands.has_permissions(manage_channels=True)
+    async def add(self, ctx):
+        global pcount
+
+    @add.command(name='pm')
+    async def pm_subcommand(self, ctx, emoji, pname, num):
+        global pcount
+        if ctx.guild.id == 763124398046969897: # realm 1
+            category = ctx.guild.get_channel(778633618691850250)
+            channel = await ctx.guild.create_text_channel(name=f'{emoji}・{pname}・{num}', category=category)
+            await ctx.send(f'{channel.mention} has been created.')
+            print(f'new channel {channel.id} has been created.')
+            pcount += 1
+        elif ctx.guild.id == 792101190154453043: # realm 2
+            category = ctx.guild.get_channel(846364405204516894)
+            channel = await ctx.guild.create_text_channel(name=f'{emoji}・{pname}・{num}', category=category)
+            await ctx.send(f'{channel.mention} has been created.')
+            print(f'new channel {channel.id} has been created.')
+            pcount += 1
+
+    @add.command(name='am')
+    async def am_subcommand(self, ctx, emoji, pname, num):
+        global pcount
+        if ctx.guild.id == 763124398046969897: # realm 1
+            category = ctx.guild.get_channel(812098840802623488)
+            channel = await ctx.guild.create_text_channel(name=f'{emoji}・{pname}・{num}', category=category)
+            await ctx.send(f'{channel.mention} has been created.')
+            print(f'new channel {channel.id} has been created.')
+            pcount += 1
+        elif ctx.guild.id == 792101190154453043: # realm 2
+            category = ctx.guild.get_channel(792102426937262120)
+            channel = await ctx.guild.create_text_channel(name=f'{emoji}・{pname}・{num}', category=category)
+            await ctx.send(f'{channel.mention} has been created.')
+            print(f'new channel {channel.id} has been created.')
+            pcount += 1
+
+    @add.command(name='both')
+    async def both_subcommand(self, ctx, emoji, pname, num):
+        global pcount
+        if ctx.guild.id == 763124398046969897: #realm 1
+            category = ctx.guild.get_channel(773916338002722817)
+            channel = await ctx.guild.create_text_channel(name=f'{emoji}・{pname}・{num}', category=category)
+            await ctx.send(f'{channel.mention} has been created.')
+            print(f'new channel {channel.id} has been created.')
+            pcount += 1
+        elif ctx.guild.id == 792101190154453043: # realm 2
+            category = ctx.guild.get_channel(827224133279809576)
+            channel = await ctx.guild.create_text_channel(name=f'{emoji}・{pname}・{num}', category=827224133279809576)
+            await ctx.send(f'{channel.mention} has been created.')
+            print(f'new channel {channel.id} has been created.')
+            pcount += 1
+
+    @add.command(name='nsfw')
+    @commands.has_role(828588365674315777)
+    async def nsfw_subcommand(self, ctx, emoji, pname, num):  # r!add nsfw emoji name number
+        global pcount
+        channel = await ctx.guild.create_text_channel(name=f'{emoji}・{pname}・{num}', category=827505074401050634, nsfw=True)
+        await ctx.send(f'{channel.mention} has been created.')
+        print(f'new nsfw channel {channel.id} has been created.')
+        pcount += 1
+
+    @add.error
+    async def add_error(self, ctx, error, param):
+        param = inspect.Parameter
+        if isinstance(error, commands.MissingRequiredArgument):
+            embed = discord.Embed(title=f'did you forget {param}?', color=0xffb6c1)
+            await ctx.send(embed=embed)
+        if isinstance(error, commands.MissingPermissions):
+            embed = discord.Embed(title='this command isn\'t for you noob', color=0xffb6c1)
+            await ctx.send(embed=embed)
+
+    @commands.command(name='delete')
+    @commands.has_permissions(manage_channels=True)
+    async def delete(self, ctx, channel: discord.TextChannel):  # r! delete channel
+        global pcount
+        await channel.delete()
+        await ctx.send("channel successfully deleted.")
+        pcount -= 1
+
+    @delete.error
+    async def delete_error(self, ctx, error):
+        if isinstance(error, discord.NotFound):
+            embed = discord.Embed(title='channel does not exist!', color=0xffb6c1)
+            await ctx.send(embed=embed)
+
+    @commands.command(name='count', aliases=['portals'])
+    async def count(self, ctx): # r!count
+        global pcount
+        embed = discord.Embed(title=f'we currently have {pcount} portals listed.', color=0xffb6c1)
+        await ctx.send(embed=embed)
+
+
+def setup(bot):
+    bot.add_cog(Portals(bot))
