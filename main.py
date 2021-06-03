@@ -2,6 +2,8 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 import os
+import sys
+import traceback
 
 intents = discord.Intents.all()
 intents.members = True
@@ -21,14 +23,14 @@ async def on_ready():
     print(f'logged in as {bot.user.name}')
     print('---------------------')
 
-bot.load_extension('cogs.portals')
+initial_extensions = ['cogs.info', 'cogs.portals']
 
-'''
-@bot.event
-async def on_command_error(ctx, error):
-    if isinstance(error, commands.CommandNotFound):
-        embed = discord.Embed(title="command does not exist.", color=0xffb6c1)
-        await ctx.send(embed=embed)
-        '''
+if __name__ == '__main__':
+    for extension in initial_extensions:
+        try:
+            bot.load_extension(extension)
+        except Exception as e:
+            print(f'Failed to load extension {extension}.', file=sys.stderr)
+            traceback.print_exc()
 
 bot.run(TOKEN)
