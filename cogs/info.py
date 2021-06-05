@@ -31,7 +31,7 @@ class Info(commands.Cog):
         embed = discord.Embed(title="you summoned me :o",
                               description="hi i'm realm bot, the bot that secretly powers this server realm of portals!\nfor now i don't have any public commands yet, so please stay tuned for any updates!\nyou can take a look at my source code at https://github.com/lktoby/realmbot3\nif you have any ideas for realm bot, feel free to suggest any ideas by running `??suggest <your suggestion>` in <#763141913272123453>!",
                               color=0xfdfd96, timestamp=datetime.datetime.utcnow())
-        embed.set_footer(text="developed by toby#0508 ; version 0.0.2")
+        embed.set_footer(text="developed by toby#0508 ; version 0.0.3")
         await ctx.send(embed=embed)
 
     @help.command(aliases=['whois', 'uinfo', 'ui'])
