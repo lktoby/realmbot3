@@ -70,7 +70,7 @@ class Portals(commands.Cog):
             pcount += 1
         elif ctx.guild.id == 792101190154453043: # realm 2
             category = ctx.guild.get_channel(827224133279809576)
-            channel = await ctx.guild.create_text_channel(name=f'{emoji}・{pname}・{num}', category=827224133279809576)
+            channel = await ctx.guild.create_text_channel(name=f'{emoji}・{pname}・{num}', category=category)
             await ctx.send(f'{channel.mention} has been created.')
             print(f'new channel {channel.id} has been created.')
             pcount += 1
@@ -86,12 +86,12 @@ class Portals(commands.Cog):
     async def nsfw_subcommand(self, ctx, emoji, pname, num):  # r!add nsfw emoji name number
         global pcount,hcount
         if ctx.guild == 792101190154453043:
-            channel = await ctx.guild.create_text_channel(name=f'{emoji}・{pname}・{num}', category=827505074401050634, nsfw=True)
+            channel = await ctx.guild.create_text_channel(name=f'{emoji}・{pname}・{num}', category=ctx.guild.get_channel(827505074401050634), nsfw=True)
             await ctx.send(f'{channel.mention} has been created.')
             print(f'new nsfw channel {channel.id} has been created.')
             pcount += 1
         elif ctx.guild == 840406812423094272:
-            channel = await ctx.guild.create_text_channel(name=f'{emoji}・{pname}・{num}', category=845489191710097458, nsfw=True)
+            channel = await ctx.guild.create_text_channel(name=f'{emoji}・{pname}・{num}', category=ctx.guild.get_channel(845489191710097458), nsfw=True)
             await ctx.send(f'{channel.mention} has been created.')
             print(f'new nsfw channel {channel.id} has been created.')
             hcount += 1
