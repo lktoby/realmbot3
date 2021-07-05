@@ -75,7 +75,7 @@ class Portals(commands.Cog):
             print(f'new channel {channel.id} has been created.')
             pcount += 1
         elif ctx.guild.id == 840406812423094272:  # realm 3
-            category = ctx.guild.get_channel(843544232110587975)
+            category = ctx.guild.get_channel(860269639664664597)
             channel = await ctx.guild.create_text_channel(name=f'{emoji}・{pname}・{num}', category=category)
             await ctx.send(f'{channel.mention} has been created.')
             print(f'new channel {channel.id} has been created.')
