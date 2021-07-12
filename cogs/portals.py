@@ -106,7 +106,7 @@ class Portals(commands.Cog):
             embed = discord.Embed(title='this command isn\'t for you noob', color=0xffb6c1)
             await ctx.send(embed=embed)
 
-    @commands.command(name='delete')
+    @commands.command(name='delete', aliases=['remove', "rm", "del"])
     @commands.has_permissions(manage_channels=True)
     async def delete(self, ctx, channel: discord.TextChannel):  # r! delete channel
         if ctx.guild == 763124398046969897 or 792101190154453043:

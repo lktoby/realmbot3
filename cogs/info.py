@@ -21,28 +21,28 @@ class Info(commands.Cog):
                            767064778916888596, 842174929670635550, 792116499308478496, 764525491880329216)
     async def guide(self, ctx):
         embed = discord.Embed(title="in case your forgot how i work",
-                              description="`r!add am/pm/both <emoji> <name> <number>` adds a portal\n`r!delete "
+                              description="`r!add am/pm/both <emoji> <name> <number>` adds a portal\n`r!delete/r!remove "
                                           "<#channel>` deletes a portal",
                               color=0xfdfd96)
-        await ctx.send(embed=embed)
-
-    @commands.command()
-    async def list(self, ctx):
-        embed = discord.Embed(title="commands available",
-                              description="`r!help` - shows a brief description for realm bot\n`r!userinfo` - shows "
-                                          "information about a user\n`r!serverinfo` - shows information about this "
-                                          "server\n`r!inviteinfo` - shows information about an invite\n\nrun `r!help "
-                                          "[name of command]` to see detailed usage of each command\narguments marked "
-                                          "in <> are required arguments, while arguments marked in [] are optional "
-                                          "arguments",
-                              color=0xfdfd96)
-        embed.set_footer(text=f"summoned by {ctx.message.author}", icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
     @guide.error
     async def guide_error(self, ctx, error):
         if isinstance(error, commands.MissingAnyRole):
             ctx.send('this command isn\'t for you >:(')
+
+    @commands.command()  # r!list
+    async def list(self, ctx):
+        embed = discord.Embed(title="commands available",
+                              description="`r!help` - shows a brief description for realm bot\n`r!portals` - shows how many portals we have at the moment\n`r!userinfo` - shows "
+                                          "information about a user\n`r!serverinfo` - shows information about this "
+                                          "server\n`r!inviteinfo` - shows information about an invite\n`r!portals` - shows how many portals we have listed\nrun `r!help "
+                                          "[name of command]` to see detailed usage of each command\narguments marked "
+                                          "in <> are required arguments, while arguments marked in [] are optional "
+                                          "arguments",
+                              color=0xfdfd96)
+        embed.set_footer(text=f"summoned by {ctx.message.author}", icon_url=ctx.message.author.avatar_url)
+        await ctx.send(embed=embed)
 
     @commands.group(name='help', invoke_without_command=True)  # r!help
     async def help_group(self, ctx):
@@ -54,10 +54,10 @@ class Info(commands.Cog):
                                           "feel free to suggest any ideas by running `??suggest <your suggestion>` in "
                                           "<#763141913272123453>!",
                               color=0xfdfd96, timestamp=datetime.datetime.utcnow())
-        embed.set_footer(text="developed by toby#0508 ; version 0.0.4")
+        embed.set_footer(text="developed by toby#0508 ; version 0.0.5")
         await ctx.send(embed=embed)
 
-    @help_group.command(name='list', aliases=['cmds', 'commands'])
+    @help_group.command(name='list', aliases=['cmds', 'commands'])  # r!help list
     async def list_subcommand(self, ctx):
         embed = discord.Embed(title="commands", description="list out all the current commands i have",
                               color=0xfdfd96, timestamp=datetime.datetime.utcnow())
@@ -86,6 +86,31 @@ class Info(commands.Cog):
     async def serverinfo_subcommand(self, ctx):
         embed = discord.Embed(title="serverinfo", description="shows the information about the server", color=0xfdfd96)
         embed.add_field(name="aliases", value="sinfo, server, info", inline=False)
+        embed.set_footer(text=f"summoned by {ctx.message.author}", icon_url=ctx.message.author.avatar_url)
+        await ctx.send(embed=embed)
+
+    @help_group.command(name='categoryinfo', aliases=['cinfo'])  # r!help categoryinfo
+    async def categoryinfo_subcommand(self, ctx):
+        embed = discord.Embed(title="categoryinfo <category>",
+                              description="shows the information about the specified category", color=0xfdfd96)
+        embed.add_field(name="aliases", value="cinfo", inline=False)
+        embed.set_footer(text=f"summoned by {ctx.message.author}", icon_url=ctx.message.author.avatar_url)
+        await ctx.send(embed=embed)
+
+    @help_group.command(name='portals', aliases=['count'])  # r!help guide
+    async def portals_subcommand(self, ctx):
+        embed = discord.Embed(title="portals <apm/head/realm1/realm2/nsfw/all>",
+                              description="shows how many portals we have listed", color=0xfdfd96)
+        embed.add_field(name="aliases", value="count", inline=False)
+        embed.set_footer(text=f"summoned by {ctx.message.author}", icon_url=ctx.message.author.avatar_url)
+        await ctx.send(embed=embed)
+
+    @help_group.command(name='query', aliases=['whoowns', 'owners'])
+    async def query_subcommand(self, ctx):
+        embed = discord.Embed(title="query <channel>/<@owner>",
+                              description="shows the owners of the portal (if channel is input)\nshows the channel the person is listed as the owner of",
+                              color=0xfdfd96)
+        embed.add_field(name="aliases", value="whoowns, owners", inline=False)
         embed.set_footer(text=f"summoned by {ctx.message.author}", icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
@@ -139,7 +164,7 @@ class Info(commands.Cog):
             linkedroles.append(ctx.guild.get_role(764842866446303232).mention)
         elif ctx.guild.get_role(764842642257084416) in member.roles:  # new apm
             linkedroles.append(ctx.guild.get_role(764842642257084416).mention)
-        if ctx.guild.get_role(764842642257084416) in member.roles:  # linked apm
+        if ctx.guild.get_role(763463442333696011) in member.roles:  # linked apm
             linkedroles.append(ctx.guild.get_role(763463442333696011).mention)
         if ctx.guild.get_role(792519836893970462) in member.roles:  # linked2 apm
             linkedroles.append(ctx.guild.get_role(792519836893970462).mention)
@@ -167,8 +192,8 @@ class Info(commands.Cog):
             apmroles.append(ctx.guild.get_role(846198680095948861).mention)
         if ctx.guild.get_role(846198683158708244) in member.roles:  # head am
             apmroles.append(ctx.guild.get_role(846198683158708244).mention)
-        if len(linkedroles) < 1:
-            linkedroles.append("none")
+        if len(apmroles) < 1:
+            apmroles.append("none")
 
         embed.add_field(name="apm status", value=f'\n'.join(apmroles))
         embed.add_field(name="Created at",
@@ -181,7 +206,12 @@ class Info(commands.Cog):
 
     @userinfo.error
     async def userinfo_error(self, ctx, error):
-        embed = discord.Embed(title="user not found.", color=0xff4747)
+        if isinstance(error, commands.RoleNotFound):
+            embed = discord.Embed(title="use this command in realm 1", color=0xff4747)
+            embed.set_footer(text='because toby is too lazy to configure this command to be used in every realm server')
+            await ctx.send(embed=embed)
+        else:
+            embed = discord.Embed(title="user not found.", color=0xff4747)
         await ctx.send(embed=embed)
         print(f'userinfo command ran into an error: {error}')
 
@@ -224,16 +254,19 @@ class Info(commands.Cog):
         bots = 0
         txt = 0
         voice = 0
+        category = 0
         for member in server.members:
             if member.bot:
                 bots += 1
             else:
                 humans += 1
         for channel in server.channels:
-            if channel.type == discord.ChannelType.text:
+            if channel.type == discord.ChannelType.text or channel.type == discord.ChannelType.news:
                 txt += 1
-            else:
+            elif channel.type == discord.ChannelType.voice or channel.type == discord.ChannelType.stage_voice:
                 voice += 1
+            elif channel.type == discord.ChannelType.category:
+                category += 1
         embed = discord.Embed(title=f'info about {server.name}', color=0xfdfd96)
         embed.set_thumbnail(url=f'{server.icon_url}')
         embed.add_field(name=f'{server.member_count} members',
@@ -241,16 +274,37 @@ class Info(commands.Cog):
         embed.add_field(name="Created at",
                         value=f'{server.created_at.strftime("%d %b %Y")}; {self.calculatetime(serverage)} ago',
                         inline=True)
-        embed.add_field(name="Owner", value=f'{server.owner.name}#{server.owner.discriminator}\nID: {server.owner.id}',
+        embed.add_field(name="Owner", value=f'{server.owner.name}#{server.owner.discriminator}, ID: {server.owner.id}',
                         inline=True)
         embed.add_field(name=f'{len(server.channels)} channels',
-                        value=f'Text: {txt}\nVoice: {voice}\nCategories: {len(server.categories)}', inline=True)
+                        value=f'Text: {txt}\nVoice: {voice}\nCategories: {category}', inline=True)
         embed.add_field(name="Roles", value=f'{len(server.roles)}', inline=True)
         embed.add_field(name="Boosts",
                         value=f'Boost level: {server.premium_tier}\nBoosters: {server.premium_subscription_count}',
                         inline=True)
         embed.set_footer(text=f'Server ID: {server.id}')
         await ctx.send(embed=embed)
+
+    @commands.command(aliases=['cinfo'])
+    async def categoryinfo(self, ctx, cat: discord.CategoryChannel):
+        embed = discord.Embed(title=f'info for category {cat.name}', color=0xfdfd96)
+        embed.add_field(name='id', value=f'{cat.id}', inline=False)
+        embed.add_field(name='created at',
+                        value=f'{cat.created_at.strftime("%d %b %Y")}; {self.calculatetime(datetime.datetime.now() - cat.created_at)} ago',
+                        inline=False)
+        if len(cat.text_channels) < 50:
+            embed.add_field(name=f'{len(cat.text_channels)} text channels', value='category not full', inline=False)
+        else:
+            embed.add_field(name=f'{len(cat.text_channels)} text channels', value='category full', inline=False)
+        await ctx.send(embed=embed)
+
+    @categoryinfo.error
+    async def categoryinfo_error(self, ctx, error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            embed = discord.Embed(title='please input a category.', color=0xff4747)
+            await ctx.send(embed=embed)
+        else:
+            print(f'command categoryinfo ran into an error: {error}')
 
 
 def setup(bot):
