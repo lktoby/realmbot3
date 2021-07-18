@@ -54,7 +54,7 @@ class Info(commands.Cog):
                                           "feel free to suggest any ideas by running `??suggest <your suggestion>` in "
                                           "<#763141913272123453>!",
                               color=0xfdfd96, timestamp=datetime.datetime.utcnow())
-        embed.set_footer(text="developed by toby#0508 ; version 0.0.5")
+        embed.set_footer(text="developed by toby#0508 ; version 0.0.6")
         await ctx.send(embed=embed)
 
     @help_group.command(name='list', aliases=['cmds', 'commands'])  # r!help list
