@@ -109,7 +109,7 @@ class Portals(commands.Cog):
     @commands.command(name='delete', aliases=['remove', "rm", "del"])
     @commands.has_permissions(manage_channels=True)
     async def delete(self, ctx, channel: discord.TextChannel):  # r! delete channel
-        if ctx.guild == 763124398046969897 or 792101190154453043:
+        if ctx.guild == 763124398046969897 or 792101190154453043 or 840406812423094272:
             global pcount
             await channel.delete()
             await ctx.send("channel successfully deleted.")
