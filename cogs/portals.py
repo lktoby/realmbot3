@@ -30,7 +30,13 @@ class Portals(commands.Cog):
             await ctx.send(f'{channel.mention} has been created.')
             print(f'new channel {channel.id} has been created.')
             pcount += 1
-        elif ctx.guild.id == 840406812423094272: # realm 3
+        elif ctx.guild.id == 860255811732111391:  # realm 3
+            category = ctx.guild.get_channel(860257737132081172)
+            channel = await ctx.guild.create_text_channel(name=f'{emoji}・{pname}・{num}', category=category)
+            await ctx.send(f'{channel.mention} has been created.')
+            print(f'new channel {channel.id} has been created.')
+            pcount += 1
+        elif ctx.guild.id == 840406812423094272: # head realm
             category = ctx.guild.get_channel(843544254579474513)
             channel = await ctx.guild.create_text_channel(name=f'{emoji}・{pname}・{num}', category=category)
             await ctx.send(f'{channel.mention} has been created.')
@@ -52,7 +58,13 @@ class Portals(commands.Cog):
             await ctx.send(f'{channel.mention} has been created.')
             print(f'new channel {channel.id} has been created.')
             pcount += 1
-        elif ctx.guild.id == 840406812423094272:  # realm 3
+        elif ctx.guild.id == 860255811732111391:  # realm 3
+            category = ctx.guild.get_channel(860258321985306725)
+            channel = await ctx.guild.create_text_channel(name=f'{emoji}・{pname}・{num}', category=category)
+            await ctx.send(f'{channel.mention} has been created.')
+            print(f'new channel {channel.id} has been created.')
+            pcount += 1
+        elif ctx.guild.id == 840406812423094272:  # head realm
             category = ctx.guild.get_channel(843544276691320863)
             channel = await ctx.guild.create_text_channel(name=f'{emoji}・{pname}・{num}', category=category)
             await ctx.send(f'{channel.mention} has been created.')
@@ -74,7 +86,13 @@ class Portals(commands.Cog):
             await ctx.send(f'{channel.mention} has been created.')
             print(f'new channel {channel.id} has been created.')
             pcount += 1
-        elif ctx.guild.id == 840406812423094272:  # realm 3
+        elif ctx.guild.id == 860255811732111391:  # realm 3
+            category = ctx.guild.get_channel(861742253134577684)
+            channel = await ctx.guild.create_text_channel(name=f'{emoji}・{pname}・{num}', category=category)
+            await ctx.send(f'{channel.mention} has been created.')
+            print(f'new channel {channel.id} has been created.')
+            pcount += 1
+        elif ctx.guild.id == 840406812423094272:  # head realm
             category = ctx.guild.get_channel(860269639664664597)
             channel = await ctx.guild.create_text_channel(name=f'{emoji}・{pname}・{num}', category=category)
             await ctx.send(f'{channel.mention} has been created.')
@@ -106,10 +124,10 @@ class Portals(commands.Cog):
             embed = discord.Embed(title='this command isn\'t for you noob', color=0xffb6c1)
             await ctx.send(embed=embed)
 
-    @commands.command(name='delete', aliases=['remove', "rm", "del"])
+    @commands.command(name='delete', aliases=['remove', 'rm', 'del'])
     @commands.has_permissions(manage_channels=True)
     async def delete(self, ctx, channel: discord.TextChannel):  # r! delete channel
-        if ctx.guild == 763124398046969897 or 792101190154453043 or 840406812423094272:
+        if ctx.guild == 763124398046969897 or 792101190154453043:
             global pcount
             await channel.delete()
             await ctx.send("channel successfully deleted.")
