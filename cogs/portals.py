@@ -118,10 +118,10 @@ class Portals(commands.Cog):
     async def add_error(self, ctx, error, param):
         param = inspect.Parameter
         if isinstance(error, commands.MissingRequiredArgument):
-            embed = discord.Embed(title=f'did you forget {param}?', color=0xffb6c1)
+            embed = discord.Embed(title=f'did you forget {param}?', color=0xff4747)
             await ctx.send(embed=embed)
         if isinstance(error, commands.MissingPermissions):
-            embed = discord.Embed(title='this command isn\'t for you noob', color=0xffb6c1)
+            embed = discord.Embed(title='this command isn\'t for you noob', color=0xff4747)
             await ctx.send(embed=embed)
 
     @commands.command(name='delete', aliases=['remove', 'rm', 'del'])
@@ -140,7 +140,7 @@ class Portals(commands.Cog):
     @delete.error
     async def delete_error(self, ctx, error):
         if isinstance(error, discord.NotFound):
-            embed = discord.Embed(title='channel does not exist!', color=0xffb6c1)
+            embed = discord.Embed(title='channel does not exist!', color=0xff4747)
             await ctx.send(embed=embed)
         if isinstance(error, commands.MissingPermissions):
             await ctx.send("this command isn't for you >:(")
@@ -148,7 +148,7 @@ class Portals(commands.Cog):
     @commands.command(name='count', aliases=['portals'])
     async def count(self, ctx): # r!count
         global pcount
-        embed = discord.Embed(title=f'we currently have {pcount} portals listed.', color=0xffb6c1)
+        embed = discord.Embed(title=f'we currently have {pcount} portals listed.', color=0xff4747)
         await ctx.send(embed=embed)
 
 

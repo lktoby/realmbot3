@@ -34,9 +34,9 @@ class Info(commands.Cog):
     @commands.command()  # r!list
     async def list(self, ctx):
         embed = discord.Embed(title="commands available",
-                              description="`r!help` - shows a brief description for realm bot\n`r!portals` - shows how many portals we have at the moment\n`r!userinfo` - shows "
+                              description="`r!help` - shows a brief description for realm bot\n`r!userinfo` - shows "
                                           "information about a user\n`r!serverinfo` - shows information about this "
-                                          "server\n`r!inviteinfo` - shows information about an invite\n`r!portals` - shows how many portals we have listed\nrun `r!help "
+                                          "server\n`r!inviteinfo` - shows information about an invite\nrun `r!help "
                                           "[name of command]` to see detailed usage of each command\narguments marked "
                                           "in <> are required arguments, while arguments marked in [] are optional "
                                           "arguments",
@@ -54,7 +54,7 @@ class Info(commands.Cog):
                                           "feel free to suggest any ideas by running `??suggest <your suggestion>` in "
                                           "<#763141913272123453>!",
                               color=0xfdfd96, timestamp=datetime.datetime.utcnow())
-        embed.set_footer(text="developed by toby#0508 ; version 0.0.6")
+        embed.set_footer(text="developed by toby#0508 ; version 0.0.7")
         await ctx.send(embed=embed)
 
     @help_group.command(name='list', aliases=['cmds', 'commands'])  # r!help list
@@ -102,6 +102,31 @@ class Info(commands.Cog):
         embed = discord.Embed(title="portals <apm/head/realm1/realm2/nsfw/all>",
                               description="shows how many portals we have listed", color=0xfdfd96)
         embed.add_field(name="aliases", value="count", inline=False)
+        embed.set_footer(text=f"summoned by {ctx.message.author}", icon_url=ctx.message.author.avatar_url)
+        await ctx.send(embed=embed)
+
+    @help_group.command(name='aesthetic', aliases=['aes'])
+    async def query_subcommand(self, ctx):
+        embed = discord.Embed(title="aesthetic",
+                              description="generates a random aesthetic",
+                              color=0xfdfd96)
+        embed.add_field(name="aliases", value="aes", inline=False)
+        embed.set_footer(text=f"summoned by {ctx.message.author}", icon_url=ctx.message.author.avatar_url)
+        await ctx.send(embed=embed)
+
+    @help_group.command(name='dog')
+    async def query_subcommand(self, ctx):
+        embed = discord.Embed(title="dog",
+                              description="generates a random dog picture",
+                              color=0xfdfd96)
+        embed.set_footer(text=f"summoned by {ctx.message.author}", icon_url=ctx.message.author.avatar_url)
+        await ctx.send(embed=embed)
+
+    @help_group.command(name='cat')
+    async def query_subcommand(self, ctx):
+        embed = discord.Embed(title="cat",
+                              description="generates a random cat picture",
+                              color=0xfdfd96)
         embed.set_footer(text=f"summoned by {ctx.message.author}", icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
@@ -168,6 +193,8 @@ class Info(commands.Cog):
             linkedroles.append(ctx.guild.get_role(763463442333696011).mention)
         if ctx.guild.get_role(792519836893970462) in member.roles:  # linked2 apm
             linkedroles.append(ctx.guild.get_role(792519836893970462).mention)
+        if ctx.guild.get_role(861742895811657738) in member.roles: # linked3 apm
+            linkedroles.append(ctx.guild.get_role(861742895811657738).mention)
         if ctx.guild.get_role(845321307805712415) in member.roles:  # verified head apm
             linkedroles.append(ctx.guild.get_role(845321307805712415).mention)
         if ctx.guild.get_role(846156350002298960) in member.roles:  # exp head apm
