@@ -447,7 +447,7 @@ class Apply(commands.Cog):
                                                                         pbapi.authenticate(pb_username, pb_pw)
                                                                         item = '\n'.join(str(x) for x in list(response.items()))
                                                                         pburl = pbapi.create_paste(
-                                                                            api_paste_private=1,
+                                                                            api_paste_private=0,
                                                                             api_paste_name= str(response[
                                                                                     "applicant"]),
                                                                             api_paste_code=str(item),
