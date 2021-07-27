@@ -106,7 +106,7 @@ class Info(commands.Cog):
         await ctx.send(embed=embed)
 
     @help_group.command(name='aesthetic', aliases=['aes'])
-    async def query_subcommand(self, ctx):
+    async def aesthetic_subcommand(self, ctx):
         embed = discord.Embed(title="aesthetic",
                               description="generates a random aesthetic",
                               color=0xfdfd96)
@@ -115,7 +115,7 @@ class Info(commands.Cog):
         await ctx.send(embed=embed)
 
     @help_group.command(name='dog')
-    async def query_subcommand(self, ctx):
+    async def dog_subcommand(self, ctx):
         embed = discord.Embed(title="dog",
                               description="generates a random dog picture",
                               color=0xfdfd96)
@@ -123,7 +123,7 @@ class Info(commands.Cog):
         await ctx.send(embed=embed)
 
     @help_group.command(name='cat')
-    async def query_subcommand(self, ctx):
+    async def cat_subcommand(self, ctx):
         embed = discord.Embed(title="cat",
                               description="generates a random cat picture",
                               color=0xfdfd96)

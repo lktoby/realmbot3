@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-from dog import Client
 import os
 import requests
 from random import *
@@ -37,10 +36,9 @@ class Fun(commands.Cog):
     # dog pics (thedogapi)
     @commands.command(name='dog')
     async def dog (self, ctx):
-        dog = Client(os.getenv('DOG_API_KEY'))
-        image = dog.get_images()[0]
+        r = requests.get("https://api.thedogapi.com/v1/images/search").json()
         embed = discord.Embed(title=f'{ctx.message.author.name} just found a dog!', color=0xfdfd96)
-        embed.set_image(url=image.url)
+        embed.set_image(url=r[0]['url'])
         await ctx.send(embed=embed)
 
     # cat pics (thecatapi)
@@ -58,6 +56,16 @@ class Fun(commands.Cog):
         pos = randint(1, len(aes))
         result = aes[pos]
         embed = discord.Embed(title=f'generated aesthetic: {result}', color=0xfdfd96)
+        await ctx.send(embed=embed)
+
+    # random colour generator
+    @commands.command(name='colour', aliases=['color'])
+    async def colour(self, ctx):
+        randhex = discord.Colour.random()
+        print(randhex)
+        image = requests.get(f"https://singlecolorimage.com/get/{str(randhex)[1:]}/512x512.png")
+        embed = discord.Embed(title=f'generated colour hex: {str(randhex)}', color=randhex)
+        embed.set_thumbnail(url=image.url)
         await ctx.send(embed=embed)
 
 
