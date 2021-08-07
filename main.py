@@ -23,7 +23,7 @@ async def on_ready():
     print(f'logged in as {bot.user.name}')
     print('---------------------')
 
-initial_extensions = ['cogs.info', 'cogs.portals', 'cogs.apply', 'cogs.fun']
+initial_extensions = ['cogs.info', 'cogs.portals', 'cogs.noms', 'cogs.fun']
 
 if __name__ == '__main__':
     for extension in initial_extensions:
