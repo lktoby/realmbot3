@@ -1,11 +1,15 @@
 import asyncio
 import datetime
+import functools
+import logging
 import os
 from typing import Union
 
 import discord
 from discord.ext import commands
 from pbwrap import Pastebin
+
+log = logging.getLogger(__name__)
 
 
 class Apply(commands.Cog):
@@ -15,7 +19,7 @@ class Apply(commands.Cog):
     global isopen
 
     @commands.group(name="status", aliases=["isopen"], invoke_without_command=True)
-    async def status_group(self, ctx):
+    async def status_group(self, ctx: commands.Context):
         global isopen
         isopen = True
         if isopen:
@@ -35,7 +39,7 @@ class Apply(commands.Cog):
 
     @status_group.command(name="toggle")
     @commands.is_owner()
-    async def toggle_subcommand(self, ctx, value):
+    async def toggle_subcommand(self, ctx: commands.Context, value):
         global isopen
         isopen = True
         if value == "true":
@@ -49,7 +53,7 @@ class Apply(commands.Cog):
 
     @commands.command(name="apply")
     @commands.dm_only()
-    async def apply(self, ctx):
+    async def apply(self, ctx: commands.Context):
         global isopen
         isopen = True
         if isopen == False:
@@ -57,7 +61,9 @@ class Apply(commands.Cog):
             return
         response = {
             "applicant": f"{ctx.message.author.name}#{ctx.message.author.discriminator}, id: {ctx.message.author.id}",
-            "submission time": datetime.datetime.utcnow().strftime("%A, %d %b %Y, %H:%M:%S UTC"),
+            "submission time": datetime.datetime.utcnow().strftime(
+                "%A, %d %b %Y, %H:%M:%S UTC"
+            ),
         }
         user = ctx.message.author
         server = self.bot.get_guild(763124398046969897)
@@ -110,7 +116,9 @@ class Apply(commands.Cog):
                 embed.set_footer(text="e.g. she/her")
                 await ctx.send(embed=embed)
                 try:
-                    r2 = await self.bot.wait_for(event="message", check=check, timeout=900)
+                    r2 = await self.bot.wait_for(
+                        event="message", check=check, timeout=900
+                    )
                     response["pronouns"] = r2.content
                 except asyncio.TimeoutError:
                     embed = discord.Embed(
@@ -130,7 +138,9 @@ class Apply(commands.Cog):
                     embed.set_footer(text="e.g. gmt+8")
                     await ctx.send(embed=embed)
                     try:
-                        r3 = await self.bot.wait_for(event="message", check=check, timeout=900)
+                        r3 = await self.bot.wait_for(
+                            event="message", check=check, timeout=900
+                        )
                         response["timezone"] = r3.content
                     except asyncio.TimeoutError:
                         embed = discord.Embed(
@@ -149,7 +159,9 @@ class Apply(commands.Cog):
                         )
                         await ctx.send(embed=embed)
 
-                        def rcheck(r: discord.Reaction, u: Union[discord.Member, discord.User]):
+                        def rcheck(
+                            r: discord.Reaction, u: Union[discord.Member, discord.User]
+                        ):
                             return (
                                 u.id == ctx.author.id
                                 and r.message.channel == ctx.channel
@@ -183,7 +195,9 @@ class Apply(commands.Cog):
                                 r5 = await self.bot.wait_for(
                                     event="message", check=check, timeout=900
                                 )
-                                response["1. why do you want to be a helper?"] = r5.content
+                                response[
+                                    "1. why do you want to be a helper?"
+                                ] = r5.content
                             except asyncio.TimeoutError:
                                 embed = discord.Embed(
                                     title="your response has timed out!",
@@ -367,10 +381,12 @@ class Apply(commands.Cog):
                                                         )
                                                         await ctx.send(embed=embed)
                                                         try:
-                                                            r13 = await self.bot.wait_for(
-                                                                event="message",
-                                                                check=check,
-                                                                timeout=900,
+                                                            r13 = (
+                                                                await self.bot.wait_for(
+                                                                    event="message",
+                                                                    check=check,
+                                                                    timeout=900,
+                                                                )
                                                             )
                                                             response[
                                                                 "9. do you work for other apm hubs?"
@@ -408,7 +424,9 @@ class Apply(commands.Cog):
                                                                     description="please run `r!apply` again to restart the application process.",
                                                                     color=0xFF4747,
                                                                 )
-                                                                await ctx.send(embed=embed)
+                                                                await ctx.send(
+                                                                    embed=embed
+                                                                )
                                                                 return
                                                             # add request 2
                                                             else:
@@ -419,7 +437,9 @@ class Apply(commands.Cog):
                                                                 embed.set_image(
                                                                     url="https://i.gyazo.com/369b7649f44382efbf08929869a498e1.png"
                                                                 )
-                                                                await ctx.send(embed=embed)
+                                                                await ctx.send(
+                                                                    embed=embed
+                                                                )
                                                                 try:
                                                                     r15 = await self.bot.wait_for(
                                                                         event="message",
@@ -435,7 +455,9 @@ class Apply(commands.Cog):
                                                                         description="please run `r!apply` again to restart the application process.",
                                                                         color=0xFF4747,
                                                                     )
-                                                                    await ctx.send(embed=embed)
+                                                                    await ctx.send(
+                                                                        embed=embed
+                                                                    )
                                                                     return
                                                                 # add request 3
                                                                 else:
@@ -446,7 +468,9 @@ class Apply(commands.Cog):
                                                                     embed.set_image(
                                                                         url="https://i.gyazo.com/e29b955a313f8b184bb38229cdaa4a74.png"
                                                                     )
-                                                                    await ctx.send(embed=embed)
+                                                                    await ctx.send(
+                                                                        embed=embed
+                                                                    )
                                                                 try:
                                                                     r16 = await self.bot.wait_for(
                                                                         event="message",
@@ -462,7 +486,9 @@ class Apply(commands.Cog):
                                                                         description="please run `r!apply` again to restart the application process.",
                                                                         color=0xFF4747,
                                                                     )
-                                                                    await ctx.send(embed=embed)
+                                                                    await ctx.send(
+                                                                        embed=embed
+                                                                    )
                                                                     return
                                                                 # add request 4
                                                                 else:
@@ -473,7 +499,9 @@ class Apply(commands.Cog):
                                                                     embed.set_image(
                                                                         url="https://i.gyazo.com/6135ff0dcccea5050fe51360e54ca172.png"
                                                                     )
-                                                                    await ctx.send(embed=embed)
+                                                                    await ctx.send(
+                                                                        embed=embed
+                                                                    )
                                                                 try:
                                                                     r17 = await self.bot.wait_for(
                                                                         event="message",
@@ -489,7 +517,9 @@ class Apply(commands.Cog):
                                                                         description="please run `r!apply` again to restart the application process.",
                                                                         color=0xFF4747,
                                                                     )
-                                                                    await ctx.send(embed=embed)
+                                                                    await ctx.send(
+                                                                        embed=embed
+                                                                    )
                                                                     return
                                                                 # add request 5
                                                                 else:
@@ -500,7 +530,9 @@ class Apply(commands.Cog):
                                                                     embed.set_image(
                                                                         url="https://i.gyazo.com/d236b642b27d91e1043c4bd570893f15.png"
                                                                     )
-                                                                    await ctx.send(embed=embed)
+                                                                    await ctx.send(
+                                                                        embed=embed
+                                                                    )
                                                                 try:
                                                                     r18 = await self.bot.wait_for(
                                                                         event="message",
@@ -516,7 +548,9 @@ class Apply(commands.Cog):
                                                                         description="please run `r!apply` again to restart the application process.",
                                                                         color=0xFF4747,
                                                                     )
-                                                                    await ctx.send(embed=embed)
+                                                                    await ctx.send(
+                                                                        embed=embed
+                                                                    )
                                                                     return
                                                                 # final confirmation
                                                                 else:
@@ -528,7 +562,9 @@ class Apply(commands.Cog):
                                                                     embed.set_footer(
                                                                         text="please react with the 🆗 emoji to continue"
                                                                     )
-                                                                    await ctx.send(embed=embed)
+                                                                    await ctx.send(
+                                                                        embed=embed
+                                                                    )
 
                                                                 def rcheck2(
                                                                     r: discord.Reaction,
@@ -538,11 +574,14 @@ class Apply(commands.Cog):
                                                                     ],
                                                                 ):
                                                                     return (
-                                                                        u.id == ctx.author.id
+                                                                        u.id
+                                                                        == ctx.author.id
                                                                         and r.message.channel
                                                                         == ctx.channel
                                                                         and str(r.emoji)
-                                                                        in ["\U0001F197"]
+                                                                        in [
+                                                                            "\U0001F197"
+                                                                        ]
                                                                     )
 
                                                                 try:
@@ -560,12 +599,16 @@ class Apply(commands.Cog):
                                                                         description="please run `r!apply` again to restart the application process.",
                                                                         color=0xFF4747,
                                                                     )
-                                                                    await ctx.send(embed=embed)
+                                                                    await ctx.send(
+                                                                        embed=embed
+                                                                    )
                                                                     return
                                                                 # pr team preference
                                                                 else:
                                                                     if (
-                                                                        str(reaction.emoji)
+                                                                        str(
+                                                                            reaction.emoji
+                                                                        )
                                                                         == "\U0001F197"
                                                                     ):
                                                                         embed = discord.Embed(
@@ -576,7 +619,9 @@ class Apply(commands.Cog):
                                                                         embed.set_footer(
                                                                             text="suge may have an interview with you if you say yes to this option so please keep your dms open"
                                                                         )
-                                                                        await ctx.send(embed=embed)
+                                                                        await ctx.send(
+                                                                            embed=embed
+                                                                        )
                                                                     try:
                                                                         (
                                                                             reaction,
@@ -592,18 +637,24 @@ class Apply(commands.Cog):
                                                                             description="please run `r!apply` again to restart the application process.",
                                                                             color=0xFF4747,
                                                                         )
-                                                                        await ctx.send(embed=embed)
+                                                                        await ctx.send(
+                                                                            embed=embed
+                                                                        )
                                                                         return
                                                                     else:
                                                                         if (
-                                                                            str(reaction.emoji)
+                                                                            str(
+                                                                                reaction.emoji
+                                                                            )
                                                                             == "\U00002705"
                                                                         ):
                                                                             response[
                                                                                 "pr team"
                                                                             ] = "yes"
                                                                         elif (
-                                                                            str(reaction.emoji)
+                                                                            str(
+                                                                                reaction.emoji
+                                                                            )
                                                                             == "\U0000274c"
                                                                         ):
                                                                             response[
@@ -613,7 +664,9 @@ class Apply(commands.Cog):
                                                                             title="the application is complete! your data will now be submitted to the staff team so they can review your application, good luck!",
                                                                             color=0xFDFDBE,
                                                                         )
-                                                                        await ctx.send(embed=embed)
+                                                                        await ctx.send(
+                                                                            embed=embed
+                                                                        )
                                                                         # pastebin handle
                                                                         pb_api_key = os.getenv(
                                                                             "PB_API_KEY"
@@ -627,12 +680,18 @@ class Apply(commands.Cog):
                                                                         pbapi = Pastebin(
                                                                             pb_api_key
                                                                         )
-                                                                        print(
+                                                                        log.info(
                                                                             f"api key for pastebin is {pb_api_key}"
                                                                         )
-                                                                        pbapi.authenticate(
-                                                                            pb_username,
-                                                                            pb_pw,
+                                                                        # make it non-blocking cause uses requests
+                                                                        await self.bot.loop.run_in_executor(
+                                                                            None,
+                                                                            functools.partial(
+                                                                                pbapi.authenticate(
+                                                                                    pb_username,
+                                                                                    pb_pw,
+                                                                                )
+                                                                            ),
                                                                         )
                                                                         item = "\n".join(
                                                                             str(x)
@@ -640,33 +699,37 @@ class Apply(commands.Cog):
                                                                                 response.items()
                                                                             )
                                                                         )
-                                                                        pburl = pbapi.create_paste(
-                                                                            api_paste_private=0,
-                                                                            api_paste_name=str(
-                                                                                response[
-                                                                                    "applicant"
-                                                                                ]
+                                                                        # again make it non-blocking
+                                                                        pburl = await self.bot.loop.run_in_executor(
+                                                                            None,
+                                                                            functools.partial(
+                                                                                pbapi.create_paste(
+                                                                                    api_paste_private=0,
+                                                                                    api_paste_name=str(
+                                                                                        response[
+                                                                                            "applicant"
+                                                                                        ]
+                                                                                    ),
+                                                                                    api_paste_code=str(
+                                                                                        item
+                                                                                    ),
+                                                                                    api_paste_format="text",
+                                                                                    api_paste_expire_date="N",
+                                                                                )
                                                                             ),
-                                                                            api_paste_code=str(
-                                                                                item
-                                                                            ),
-                                                                            api_paste_format="text",
-                                                                            api_paste_expire_date="N",
                                                                         )
-                                                                        print(
+                                                                        log.info(
                                                                             f"new application created via pastebin, url: {pburl}"
                                                                         )
-                                                                        channel = (
-                                                                            self.bot.get_channel(
-                                                                                817500525968359444
-                                                                            )
+                                                                        channel = self.bot.get_channel(
+                                                                            817500525968359444
                                                                         )
                                                                         await channel.send(
                                                                             f'new application from {response["applicant"]}\n\nfull application here: {pburl}'
                                                                         )
 
     @apply.error
-    async def apply_error(self, ctx, error):
+    async def apply_error(self, ctx: commands.Context, error):
         if isinstance(error, commands.MissingRole):
             embed = discord.Embed(
                 title="you do not fit the requirements to be staff yet!",
@@ -685,7 +748,7 @@ class Apply(commands.Cog):
                 color=0xFDFDBE,
             )
             await ctx.send(embed=embed)
-        print(f"apply command ran into an error: {error}")
+        log.error(f"apply command ran into an error: {error}")
 
 
 def setup(bot):

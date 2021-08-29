@@ -1,9 +1,12 @@
 import datetime
+import logging
 import typing
 
 import discord
 import discord.ext
 from discord.ext import commands
+
+log = logging.getLogger(__name__)
 
 
 class Info(commands.Cog):
@@ -11,7 +14,7 @@ class Info(commands.Cog):
         self.bot = bot
 
     @commands.command()  # r!ping
-    async def ping(self, ctx):
+    async def ping(self, ctx: commands.Context):
         ping = round(self.bot.latency, 2) * 1000
         await ctx.send(f"pong! {ping}ms")
 
@@ -34,7 +37,7 @@ class Info(commands.Cog):
         792116499308478496,
         764525491880329216,
     )
-    async def guide(self, ctx):
+    async def guide(self, ctx: commands.Context):
         embed = discord.Embed(
             title="in case your forgot how i work",
             description="`r!add am/pm/both <emoji> <name> <number>` adds a portal\n`r!delete/r!remove "
@@ -44,12 +47,12 @@ class Info(commands.Cog):
         await ctx.send(embed=embed)
 
     @guide.error
-    async def guide_error(self, ctx, error):
+    async def guide_error(self, ctx: commands.Context, error):
         if isinstance(error, commands.MissingAnyRole):
             ctx.send("this command isn't for you >:(")
 
-    @commands.command()  # r!list
-    async def list(self, ctx):
+    @commands.command(name="list")  # r!list
+    async def _list(self, ctx: commands.Context):
         embed = discord.Embed(
             title="commands available",
             description="`r!help` - shows a brief description for realm bot\n`r!userinfo` - shows "
@@ -67,7 +70,7 @@ class Info(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.group(name="help", invoke_without_command=True)  # r!help
-    async def help_group(self, ctx):
+    async def help_group(self, ctx: commands.Context):
         embed = discord.Embed(
             title="you summoned me :o",
             description="hi i'm realm bot, the bot that secretly powers this server realm of "
@@ -83,7 +86,7 @@ class Info(commands.Cog):
         await ctx.send(embed=embed)
 
     @help_group.command(name="list", aliases=["cmds", "commands"])  # r!help list
-    async def list_subcommand(self, ctx):
+    async def list_subcommand(self, ctx: commands.Context):
         embed = discord.Embed(
             title="commands",
             description="list out all the current commands i have",
@@ -97,8 +100,10 @@ class Info(commands.Cog):
         )
         await ctx.send(embed=embed)
 
-    @help_group.command(name="userinfo", aliases=["whois", "uinfo", "ui"])  # r!help userinfo
-    async def userinfo_subcommand(self, ctx):
+    @help_group.command(
+        name="userinfo", aliases=["whois", "uinfo", "ui"]
+    )  # r!help userinfo
+    async def userinfo_subcommand(self, ctx: commands.Context):
         embed = discord.Embed(
             title="userinfo [@user/id]",
             description="shows information about a specified user",
@@ -112,8 +117,10 @@ class Info(commands.Cog):
         )
         await ctx.send(embed=embed)
 
-    @help_group.command(name="inviteinfo", aliases=["check", "inv", "invite"])  # r!help inviteinfo
-    async def inviteinfo_subcommand(self, ctx):
+    @help_group.command(
+        name="inviteinfo", aliases=["check", "inv", "invite"]
+    )  # r!help inviteinfo
+    async def inviteinfo_subcommand(self, ctx: commands.Context):
         embed = discord.Embed(
             title="inviteinfo <invite link>",
             description="shows the information about the server fetched from an invite specified",
@@ -130,7 +137,7 @@ class Info(commands.Cog):
     @help_group.command(
         name="serverinfo", aliases=["sinfo", "server", "info"]
     )  # r!help serverinfo
-    async def serverinfo_subcommand(self, ctx):
+    async def serverinfo_subcommand(self, ctx: commands.Context):
         embed = discord.Embed(
             title="serverinfo",
             description="shows the information about the server",
@@ -144,7 +151,7 @@ class Info(commands.Cog):
         await ctx.send(embed=embed)
 
     @help_group.command(name="categoryinfo", aliases=["cinfo"])  # r!help categoryinfo
-    async def categoryinfo_subcommand(self, ctx):
+    async def categoryinfo_subcommand(self, ctx: commands.Context):
         embed = discord.Embed(
             title="categoryinfo <category>",
             description="shows the information about the specified category",
@@ -158,7 +165,7 @@ class Info(commands.Cog):
         await ctx.send(embed=embed)
 
     @help_group.command(name="portals", aliases=["count"])  # r!help guide
-    async def portals_subcommand(self, ctx):
+    async def portals_subcommand(self, ctx: commands.Context):
         embed = discord.Embed(
             title="portals <apm/head/realm1/realm2/nsfw/all>",
             description="shows how many portals we have listed",
@@ -172,7 +179,7 @@ class Info(commands.Cog):
         await ctx.send(embed=embed)
 
     @help_group.command(name="aesthetic", aliases=["aes"])
-    async def aesthetic_subcommand(self, ctx):
+    async def aesthetic_subcommand(self, ctx: commands.Context):
         embed = discord.Embed(
             title="aesthetic",
             description="generates a random aesthetic",
@@ -186,7 +193,7 @@ class Info(commands.Cog):
         await ctx.send(embed=embed)
 
     @help_group.command(name="dog")
-    async def dog_subcommand(self, ctx):
+    async def dog_subcommand(self, ctx: commands.Context):
         embed = discord.Embed(
             title="dog", description="generates a random dog picture", color=0xFDFD96
         )
@@ -197,7 +204,7 @@ class Info(commands.Cog):
         await ctx.send(embed=embed)
 
     @help_group.command(name="cat")
-    async def cat_subcommand(self, ctx):
+    async def cat_subcommand(self, ctx: commands.Context):
         embed = discord.Embed(
             title="cat", description="generates a random cat picture", color=0xFDFD96
         )
@@ -208,7 +215,7 @@ class Info(commands.Cog):
         await ctx.send(embed=embed)
 
     @help_group.command(name="query", aliases=["whoowns", "owners"])
-    async def query_subcommand(self, ctx):
+    async def query_subcommand(self, ctx: commands.Context):
         embed = discord.Embed(
             title="query <channel>/<@owner>",
             description="shows the owners of the portal (if channel is input)\nshows the channel the person is listed as the owner of",
@@ -227,11 +234,13 @@ class Info(commands.Cog):
         hours, remainder = divmod(int(age.total_seconds()), 3600)
         minutes, seconds = divmod(remainder, 60)
         days, hours = divmod(hours, 24)
-        format = f"{days} days, {hours} hours, {minutes} minutes and {seconds} seconds"
-        return format
+        _format = f"{days} days, {hours} hours, {minutes} minutes and {seconds} seconds"
+        return _format
 
     @commands.command(aliases=["whois", "uinfo", "ui"])  # r!userinfo
-    async def userinfo(self, ctx, ping: typing.Optional[discord.Member]):
+    async def userinfo(
+        self, ctx: commands.Context, ping: typing.Optional[discord.Member]
+    ):
         if ping is None:
             member = ctx.message.author
         else:
@@ -320,7 +329,7 @@ class Info(commands.Cog):
         await ctx.send(embed=embed)
 
     @userinfo.error
-    async def userinfo_error(self, ctx, error):
+    async def userinfo_error(self, ctx: commands.Context, error):
         if isinstance(error, commands.RoleNotFound):
             embed = discord.Embed(title="use this command in realm 1", color=0xFF4747)
             embed.set_footer(
@@ -330,13 +339,15 @@ class Info(commands.Cog):
         else:
             embed = discord.Embed(title="user not found.", color=0xFF4747)
         await ctx.send(embed=embed)
-        print(f"userinfo command ran into an error: {error}")
+        log.error(f"userinfo command ran into an error: {error}")
 
     @commands.command(aliases=["check", "inv", "invite"])  # r!inviteinfo
-    async def inviteinfo(self, ctx, invite):
+    async def inviteinfo(self, ctx: commands.Context, invite):
         inv = await ctx.bot.fetch_invite(invite)
-        print(f"{inv} is being queried to be checked")
-        embed = discord.Embed(title=f"information fetched from {inv.code}", color=0xFDFD96)
+        log.info(f"{inv} is being queried to be checked")
+        embed = discord.Embed(
+            title=f"information fetched from {inv.code}", color=0xFDFD96
+        )
         embed.set_thumbnail(url=f"{inv.guild.icon_url}")
         embed.add_field(name="server name", value=f"{inv.guild.name}")
         embed.add_field(name="server id", value=f"{inv.guild.id}", inline=False)
@@ -345,7 +356,9 @@ class Info(commands.Cog):
             value=f'{inv.guild.created_at.strftime("%d %b %Y, %H:%M")}',
             inline=False,
         )
-        embed.add_field(name="member count", value=f"{inv.approximate_member_count}", inline=False)
+        embed.add_field(
+            name="member count", value=f"{inv.approximate_member_count}", inline=False
+        )
         embed.add_field(
             name="verification level",
             value=f"{str(inv.guild.verification_level)}",
@@ -358,20 +371,20 @@ class Info(commands.Cog):
             expire = inv.max_age
             embed.add_field(name="invite expires in", value=f"{expire}", inline=False)
             await ctx.send(embed=embed)
-        print(f"{inv} has been checked")
+        log.info(f"{inv} has been checked")
 
     @inviteinfo.error
-    async def inviteinfo_error(self, ctx, error):
+    async def inviteinfo_error(self, ctx: commands.Context, error):
         if isinstance(error, commands.MissingRequiredArgument):
             embed = discord.Embed(title="please input an invite.", color=0xFF4747)
             await ctx.send(embed=embed)
         else:
-            print(f"inviteinfo command ran into an error: {error}")
+            log.error(f"inviteinfo command ran into an error: {error}")
             embed = discord.Embed(title="invalid invite.", color=0xFF4747)
             await ctx.send(embed=embed)
 
     @commands.command(aliases=["sinfo", "server", "info"])  # r!serverinfo
-    async def serverinfo(self, ctx):
+    async def serverinfo(self, ctx: commands.Context):
         server = ctx.guild
         serverage = datetime.datetime.now() - server.created_at
         humans = 0
@@ -429,7 +442,7 @@ class Info(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command(aliases=["cinfo"])
-    async def categoryinfo(self, ctx, cat: discord.CategoryChannel):
+    async def categoryinfo(self, ctx: commands.Context, cat: discord.CategoryChannel):
         embed = discord.Embed(title=f"info for category {cat.name}", color=0xFDFD96)
         embed.add_field(name="id", value=f"{cat.id}", inline=False)
         embed.add_field(
@@ -452,12 +465,12 @@ class Info(commands.Cog):
         await ctx.send(embed=embed)
 
     @categoryinfo.error
-    async def categoryinfo_error(self, ctx, error):
+    async def categoryinfo_error(self, ctx: commands.Context, error):
         if isinstance(error, commands.MissingRequiredArgument):
             embed = discord.Embed(title="please input a category.", color=0xFF4747)
             await ctx.send(embed=embed)
         else:
-            print(f"command categoryinfo ran into an error: {error}")
+            log.error(f"command categoryinfo ran into an error: {error}")
 
 
 def setup(bot):
