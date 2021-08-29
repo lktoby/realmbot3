@@ -23,20 +23,18 @@ TOKEN = os.getenv("TOKEN")
 
 @bot.event
 async def on_ready():
-    startup_msg = [
-        "---------------------",
+    print_msg = [
         f"logged in as {bot.user.name}",
-        f"i am owned by {str(await bot.fetch_user(bot.owner_id))} [{bot.owner_id}]",
+        f"i am developed by toby#0508 ",
         f"Prefix: r!",
         "Connected to:",
         f"{len(bot.guilds)} servers",
         f"Invite URL: https://discord.com/oauth2/authorize?client_id={bot.user.id}&scope=bot+applications.commands&permissions=0",
-        "---------------------",
     ]
-    WIDTH = len(max(startup_msg, key=len))
-    startup_msg = [s.center(WIDTH) for s in startup_msg]
-    [startup_msg.insert(index, "-" * WIDTH) for index in (0, 2, len(startup_msg) + 2)]
-    rich.print("\n".join(startup_msg))
+    WIDTH = len(max(print_msg, key=len))
+    print_msg = [s.center(WIDTH) for s in print_msg]
+    [print_msg.insert(index, "-" * WIDTH) for index in (0, 2, len(print_msg) + 2)]
+    rich.print("\n".join(print_msg))
 
 
 initial_extensions = ["cogs.info", "cogs.portals", "cogs.noms", "cogs.fun"]
