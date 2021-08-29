@@ -1,8 +1,9 @@
-import discord
-from discord.ext import commands
 import os
-import requests
 from random import *
+
+import discord
+import requests
+from discord.ext import commands
 
 
 class Fun(commands.Cog):
@@ -10,61 +11,125 @@ class Fun(commands.Cog):
         self.bot = bot
 
     # roast
-    @commands.command(name='roast')
+    @commands.command(name="roast")
     async def roast(self, ctx, target: discord.Member, *, msg):
-        roastable = [ctx.guild.get_member(477096301364903936), ctx.guild.get_member(750822039438491669), ctx.guild.get_member(553401127731855364), ctx.guild.get_member(449057790963613716), ctx.guild.get_member(320245258250223618), ctx.guild.get_member(479113259753013258), ctx.guild.get_member(709959792537632810), ctx.guild.get_member(472893119990595594), ctx.guild.get_member(326448696042586112)]
+        roastable = [
+            ctx.guild.get_member(477096301364903936),
+            ctx.guild.get_member(750822039438491669),
+            ctx.guild.get_member(553401127731855364),
+            ctx.guild.get_member(449057790963613716),
+            ctx.guild.get_member(320245258250223618),
+            ctx.guild.get_member(479113259753013258),
+            ctx.guild.get_member(709959792537632810),
+            ctx.guild.get_member(472893119990595594),
+            ctx.guild.get_member(326448696042586112),
+        ]
         if target not in roastable:
-            embed=discord.Embed(title='this member isn\'t roastable!', color=0xff4747)
+            embed = discord.Embed(title="this member isn't roastable!", color=0xFF4747)
             await ctx.send(embed=embed)
             return
         author = ctx.message.author
-        embed = discord.Embed(title=f'a roast from {author.name} to {target.name}!', description=msg, color=0xfdfd96)
-        embed.set_footer(icon_url=author.avatar_url, text='submit a new roast by running r!roast <target> <message>')
+        embed = discord.Embed(
+            title=f"a roast from {author.name} to {target.name}!",
+            description=msg,
+            color=0xFDFD96,
+        )
+        embed.set_footer(
+            icon_url=author.avatar_url,
+            text="submit a new roast by running r!roast <target> <message>",
+        )
         embed.set_thumbnail(url=target.avatar_url)
         channel = ctx.guild.get_channel(778676762808549406)
-        await channel.send(content=f'{target.mention} you just got a new incoming roast!', embed=embed)
-        embed = discord.Embed(title='roast sent!', color=0xfdfd96)
+        await channel.send(
+            content=f"{target.mention} you just got a new incoming roast!", embed=embed
+        )
+        embed = discord.Embed(title="roast sent!", color=0xFDFD96)
         await ctx.send(embed=embed)
 
     @roast.error
     async def roast_error(self, ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
-            embed=discord.Embed(title=f'did you miss something?', description='remember the format is `r!roast <target> <message>`.', color=0xff4747)
+            embed = discord.Embed(
+                title=f"did you miss something?",
+                description="remember the format is `r!roast <target> <message>`.",
+                color=0xFF4747,
+            )
             await ctx.send(embed=embed)
-        print(f'roast command ran into an error: {error}')
+        print(f"roast command ran into an error: {error}")
 
     # dog pics (thedogapi)
-    @commands.command(name='dog')
-    async def dog (self, ctx):
+    @commands.command(name="dog")
+    async def dog(self, ctx):
         r = requests.get("https://api.thedogapi.com/v1/images/search").json()
-        embed = discord.Embed(title=f'{ctx.message.author.name} just found a dog!', color=0xfdfd96)
-        embed.set_image(url=r[0]['url'])
+        embed = discord.Embed(title=f"{ctx.message.author.name} just found a dog!", color=0xFDFD96)
+        embed.set_image(url=r[0]["url"])
         await ctx.send(embed=embed)
 
     # cat pics (thecatapi)
-    @commands.command(name='cat')
+    @commands.command(name="cat")
     async def cat(self, ctx):
         r = requests.get("https://api.thecatapi.com/v1/images/search").json()
-        embed=discord.Embed(title=f'{ctx.message.author.name} just found a cat!', color=0xfdfd96)
-        embed.set_image(url=r[0]['url'])
+        embed = discord.Embed(title=f"{ctx.message.author.name} just found a cat!", color=0xFDFD96)
+        embed.set_image(url=r[0]["url"])
         await ctx.send(embed=embed)
 
     # random aes generator
-    @commands.command(name='aesthetic', aliases=['aes'])
+    @commands.command(name="aesthetic", aliases=["aes"])
     async def aesthetic(self, ctx):
-        aes = ['angelcore', 'cottagecore', 'cyberpunk', 'fairycore', 'grunge', 'draincore', 'mangacore', 'soft grunge', 'dollcore', 'webcore', 'medcore/hospital', 'babycore', 'steampunk', 'dark academia', 'light academia', 'indie', '90s', 'pastel', 'kidcore', 'retro', 'vaporwave', 'sleepycore', 'lovecore', 'devilcore', 'royalcore', 'princesscore', 'bunnycore', 'bloomcore', 'beachcore', 'urbancore', 'citycore', 'y2k', 'animecore', 'cartooncore', 'messycore', 'cybercore', 'cafe', 'emo', 'glitchcore', 'traumacore']
+        aes = [
+            "angelcore",
+            "cottagecore",
+            "cyberpunk",
+            "fairycore",
+            "grunge",
+            "draincore",
+            "mangacore",
+            "soft grunge",
+            "dollcore",
+            "webcore",
+            "medcore/hospital",
+            "babycore",
+            "steampunk",
+            "dark academia",
+            "light academia",
+            "indie",
+            "90s",
+            "pastel",
+            "kidcore",
+            "retro",
+            "vaporwave",
+            "sleepycore",
+            "lovecore",
+            "devilcore",
+            "royalcore",
+            "princesscore",
+            "bunnycore",
+            "bloomcore",
+            "beachcore",
+            "urbancore",
+            "citycore",
+            "y2k",
+            "animecore",
+            "cartooncore",
+            "messycore",
+            "cybercore",
+            "cafe",
+            "emo",
+            "glitchcore",
+            "traumacore",
+        ]
         pos = randint(1, len(aes))
         result = aes[pos]
-        embed = discord.Embed(title=f'generated aesthetic: {result}', color=0xfdfd96)
+        embed = discord.Embed(title=f"generated aesthetic: {result}", color=0xFDFD96)
         await ctx.send(embed=embed)
 
     # random colour generator
-    @commands.command(name='colour', aliases=['color'])
+    @commands.command(name="colour", aliases=["color"])
     async def colour(self, ctx):
         randhex = discord.Colour.random()
         print(randhex)
         image = requests.get(f"https://singlecolorimage.com/get/{str(randhex)[1:]}/512x512.png")
-        embed = discord.Embed(title=f'generated colour hex: {str(randhex)}', color=randhex)
+        embed = discord.Embed(title=f"generated colour hex: {str(randhex)}", color=randhex)
         embed.set_thumbnail(url=image.url)
         await ctx.send(embed=embed)
 
