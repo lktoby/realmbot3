@@ -638,10 +638,9 @@ class Apply(commands.Cog):
                                                                         await self.bot.loop.run_in_executor(
                                                                             None,
                                                                             functools.partial(
-                                                                                pbapi.authenticate(
-                                                                                    pb_username,
-                                                                                    pb_pw,
-                                                                                )
+                                                                                pbapi.authenticate,
+                                                                                pb_username,
+                                                                                pb_pw,
                                                                             ),
                                                                         )
                                                                         item = "\n".join(
@@ -654,19 +653,18 @@ class Apply(commands.Cog):
                                                                         pburl = await self.bot.loop.run_in_executor(
                                                                             None,
                                                                             functools.partial(
-                                                                                pbapi.create_paste(
-                                                                                    api_paste_private=0,
-                                                                                    api_paste_name=str(
-                                                                                        response[
-                                                                                            "applicant"
-                                                                                        ]
-                                                                                    ),
-                                                                                    api_paste_code=str(
-                                                                                        item
-                                                                                    ),
-                                                                                    api_paste_format="text",
-                                                                                    api_paste_expire_date="N",
-                                                                                )
+                                                                                pbapi.create_paste,
+                                                                                api_paste_private=0,
+                                                                                api_paste_name=str(
+                                                                                    response[
+                                                                                        "applicant"
+                                                                                    ]
+                                                                                ),
+                                                                                api_paste_code=str(
+                                                                                    item
+                                                                                ),
+                                                                                api_paste_format="text",
+                                                                                api_paste_expire_date="N",
                                                                             ),
                                                                         )
                                                                         log.info(

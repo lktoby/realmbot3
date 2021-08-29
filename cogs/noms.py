@@ -392,6 +392,13 @@ class Noms(commands.Cog):
                                                             )
                                                             await ctx.send(embed=embed)
 
+    @nominate.error
+    async def nominate_error(self, ctx: commands.Context, error):
+        if isinstance(error, commands.PrivateMessageOnly):
+            await ctx.send(
+                "please use this command in my dms! be sure you have your dms opened as well"
+            )
+
 
 def setup(bot):
     bot.add_cog(Noms(bot))
