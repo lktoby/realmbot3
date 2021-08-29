@@ -159,9 +159,7 @@ class Portals(commands.Cog):
             embed = discord.Embed(title=f"did you forget {param}?", color=0xFF4747)
             await ctx.send(embed=embed)
         if isinstance(error, commands.MissingPermissions):
-            embed = discord.Embed(
-                title="this command isn't for you noob", color=0xFF4747
-            )
+            embed = discord.Embed(title="this command isn't for you noob", color=0xFF4747)
             await ctx.send(embed=embed)
 
     @commands.command(name="delete", aliases=["remove", "rm", "del"])
@@ -190,9 +188,7 @@ class Portals(commands.Cog):
     @commands.command(name="count", aliases=["portals"])
     async def count(self, ctx: commands.Context):  # r!count
         global pcount
-        embed = discord.Embed(
-            title=f"we currently have {pcount} portals listed.", color=0xFF4747
-        )
+        embed = discord.Embed(title=f"we currently have {pcount} portals listed.", color=0xFF4747)
         await ctx.send(embed=embed)
 
 

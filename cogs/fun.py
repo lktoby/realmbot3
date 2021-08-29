@@ -67,30 +67,22 @@ class Fun(commands.Cog):
     # dog pics (thedogapi)
     @commands.command()
     async def dog(self, ctx: commands.Context):
-        async with self.session.get(
-            "https://api.thedogapi.com/v1/images/search"
-        ) as res:
+        async with self.session.get("https://api.thedogapi.com/v1/images/search") as res:
             if res.status != 200:
                 return await ctx.send("something went wrong, try again!")
             r = await res.json()
-        embed = discord.Embed(
-            title=f"{ctx.message.author.name} just found a dog!", color=0xFDFD96
-        )
+        embed = discord.Embed(title=f"{ctx.message.author.name} just found a dog!", color=0xFDFD96)
         embed.set_image(url=r[0]["url"])
         await ctx.send(embed=embed)
 
     # cat pics (thecatapi)
     @commands.command()
     async def cat(self, ctx: commands.Context):
-        async with self.session.get(
-            "https://api.thecatapi.com/v1/images/search"
-        ) as res:
+        async with self.session.get("https://api.thecatapi.com/v1/images/search") as res:
             if res.status != 200:
                 return await ctx.send("something went wrong, try again!")
             r = await res.json()
-        embed = discord.Embed(
-            title=f"{ctx.message.author.name} just found a cat!", color=0xFDFD96
-        )
+        embed = discord.Embed(title=f"{ctx.message.author.name} just found a cat!", color=0xFDFD96)
         embed.set_image(url=r[0]["url"])
         await ctx.send(embed=embed)
 
@@ -155,9 +147,7 @@ class Fun(commands.Cog):
             if res.status != 200:
                 return await ctx.send("something went wrong, try again!")
             image = res.url
-        embed = discord.Embed(
-            title=f"generated colour hex: {str(randhex)}", color=randhex
-        )
+        embed = discord.Embed(title=f"generated colour hex: {str(randhex)}", color=randhex)
         embed.set_thumbnail(url=image)
         await ctx.send(embed=embed)
 

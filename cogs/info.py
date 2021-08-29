@@ -100,9 +100,7 @@ class Info(commands.Cog):
         )
         await ctx.send(embed=embed)
 
-    @help_group.command(
-        name="userinfo", aliases=["whois", "uinfo", "ui"]
-    )  # r!help userinfo
+    @help_group.command(name="userinfo", aliases=["whois", "uinfo", "ui"])  # r!help userinfo
     async def userinfo_subcommand(self, ctx: commands.Context):
         embed = discord.Embed(
             title="userinfo [@user/id]",
@@ -117,9 +115,7 @@ class Info(commands.Cog):
         )
         await ctx.send(embed=embed)
 
-    @help_group.command(
-        name="inviteinfo", aliases=["check", "inv", "invite"]
-    )  # r!help inviteinfo
+    @help_group.command(name="inviteinfo", aliases=["check", "inv", "invite"])  # r!help inviteinfo
     async def inviteinfo_subcommand(self, ctx: commands.Context):
         embed = discord.Embed(
             title="inviteinfo <invite link>",
@@ -238,9 +234,7 @@ class Info(commands.Cog):
         return _format
 
     @commands.command(aliases=["whois", "uinfo", "ui"])  # r!userinfo
-    async def userinfo(
-        self, ctx: commands.Context, ping: typing.Optional[discord.Member]
-    ):
+    async def userinfo(self, ctx: commands.Context, ping: typing.Optional[discord.Member]):
         if ping is None:
             member = ctx.message.author
         else:
@@ -345,9 +339,7 @@ class Info(commands.Cog):
     async def inviteinfo(self, ctx: commands.Context, invite):
         inv = await ctx.bot.fetch_invite(invite)
         log.info(f"{inv} is being queried to be checked")
-        embed = discord.Embed(
-            title=f"information fetched from {inv.code}", color=0xFDFD96
-        )
+        embed = discord.Embed(title=f"information fetched from {inv.code}", color=0xFDFD96)
         embed.set_thumbnail(url=f"{inv.guild.icon_url}")
         embed.add_field(name="server name", value=f"{inv.guild.name}")
         embed.add_field(name="server id", value=f"{inv.guild.id}", inline=False)
@@ -356,9 +348,7 @@ class Info(commands.Cog):
             value=f'{inv.guild.created_at.strftime("%d %b %Y, %H:%M")}',
             inline=False,
         )
-        embed.add_field(
-            name="member count", value=f"{inv.approximate_member_count}", inline=False
-        )
+        embed.add_field(name="member count", value=f"{inv.approximate_member_count}", inline=False)
         embed.add_field(
             name="verification level",
             value=f"{str(inv.guild.verification_level)}",
