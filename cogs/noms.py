@@ -12,7 +12,7 @@ class Noms(commands.Cog):
     global isopen
 
     @commands.command(name="nom status")
-    async def nomstatus(self, ctx, value):
+    async def nomstatus(self, ctx: commands.Context, value):
         isopen = True
         if value == "true":
             isopen = True
@@ -25,7 +25,7 @@ class Noms(commands.Cog):
 
     @commands.command(name="nominate")
     @commands.dm_only()
-    async def nominate(self, ctx):
+    async def nominate(self, ctx: commands.Context):
         global isopen
         isopen = True
         if isopen == False:
@@ -80,7 +80,9 @@ class Noms(commands.Cog):
                 )
                 await ctx.send(embed=embed)
                 try:
-                    r2 = await self.bot.wait_for(event="message", check=check, timeout=900)
+                    r2 = await self.bot.wait_for(
+                        event="message", check=check, timeout=900
+                    )
                     response["new pm reason"] = r2.content
                 except asyncio.TimeoutError:
                     embed = discord.Embed(
@@ -99,7 +101,9 @@ class Noms(commands.Cog):
                     embed.set_footer(text="e.g. toby#0508, 477096301364903936")
                     await ctx.send(embed=embed)
                     try:
-                        r3 = await self.bot.wait_for(event="message", check=check, timeout=900)
+                        r3 = await self.bot.wait_for(
+                            event="message", check=check, timeout=900
+                        )
                         response["new am"] = r3.content
                     except asyncio.TimeoutError:
                         embed = discord.Embed(
@@ -117,7 +121,9 @@ class Noms(commands.Cog):
                         )
                         await ctx.send(embed=embed)
                         try:
-                            r4 = await self.bot.wait_for(event="message", check=check, timeout=900)
+                            r4 = await self.bot.wait_for(
+                                event="message", check=check, timeout=900
+                            )
                             response["new am reason"] = r4.content
                         except asyncio.TimeoutError:
                             embed = discord.Embed(
@@ -174,7 +180,9 @@ class Noms(commands.Cog):
                                         description="please make sure they have the 'experienced apm' role.",
                                         color=0xFDFDBE,
                                     )
-                                    embed.set_footer(text="e.g. toby#0508, 477096301364903936")
+                                    embed.set_footer(
+                                        text="e.g. toby#0508, 477096301364903936"
+                                    )
                                     await ctx.send(embed=embed)
                                     try:
                                         r7 = await self.bot.wait_for(
@@ -249,7 +257,9 @@ class Noms(commands.Cog):
                                                         check=check,
                                                         timeout=900,
                                                     )
-                                                    response["overall pm reason"] = r10.content
+                                                    response[
+                                                        "overall pm reason"
+                                                    ] = r10.content
                                                 except asyncio.TimeoutError:
                                                     embed = discord.Embed(
                                                         title="your response has timed out!",
@@ -274,7 +284,9 @@ class Noms(commands.Cog):
                                                             check=check,
                                                             timeout=900,
                                                         )
-                                                        response["overall am"] = r11.content
+                                                        response[
+                                                            "overall am"
+                                                        ] = r11.content
                                                     except asyncio.TimeoutError:
                                                         embed = discord.Embed(
                                                             title="your response has timed out!",
@@ -291,10 +303,12 @@ class Noms(commands.Cog):
                                                         )
                                                         await ctx.send(embed=embed)
                                                         try:
-                                                            r12 = await self.bot.wait_for(
-                                                                event="message",
-                                                                check=check,
-                                                                timeout=900,
+                                                            r12 = (
+                                                                await self.bot.wait_for(
+                                                                    event="message",
+                                                                    check=check,
+                                                                    timeout=900,
+                                                                )
                                                             )
                                                             response[
                                                                 "overall am reason"
@@ -315,47 +329,65 @@ class Noms(commands.Cog):
                                                             )
                                                             embed.add_field(
                                                                 name="nomination for __new pm__:",
-                                                                value=response["new pm"],
+                                                                value=response[
+                                                                    "new pm"
+                                                                ],
                                                                 inline=False,
                                                             )
                                                             embed.add_field(
                                                                 name="reason:",
-                                                                value=response["new pm reason"],
+                                                                value=response[
+                                                                    "new pm reason"
+                                                                ],
                                                                 inline=False,
                                                             )
                                                             embed.add_field(
                                                                 name="nomination for __new am__:",
-                                                                value=response["new am"],
+                                                                value=response[
+                                                                    "new am"
+                                                                ],
                                                                 inline=False,
                                                             )
                                                             embed.add_field(
                                                                 name="reason:",
-                                                                value=response["new am reason"],
+                                                                value=response[
+                                                                    "new am reason"
+                                                                ],
                                                                 inline=False,
                                                             )
                                                             embed.add_field(
                                                                 name="nomination for __experienced pm__:",
-                                                                value=response["exp pm"],
+                                                                value=response[
+                                                                    "exp pm"
+                                                                ],
                                                                 inline=False,
                                                             )
                                                             embed.add_field(
                                                                 name="reason:",
-                                                                value=response["exp pm reason"],
+                                                                value=response[
+                                                                    "exp pm reason"
+                                                                ],
                                                                 inline=False,
                                                             )
                                                             embed.add_field(
                                                                 name="nomination for __experienced am__:",
-                                                                value=response["exp am"],
+                                                                value=response[
+                                                                    "exp am"
+                                                                ],
                                                                 inline=False,
                                                             )
                                                             embed.add_field(
                                                                 name="reason:",
-                                                                value=response["exp am reason"],
+                                                                value=response[
+                                                                    "exp am reason"
+                                                                ],
                                                                 inline=False,
                                                             )
                                                             embed.add_field(
                                                                 name="nomination for __overall pm__:",
-                                                                value=response["overall pm"],
+                                                                value=response[
+                                                                    "overall pm"
+                                                                ],
                                                                 inline=False,
                                                             )
                                                             embed.add_field(
@@ -367,7 +399,9 @@ class Noms(commands.Cog):
                                                             )
                                                             embed.add_field(
                                                                 name="nomination for __overall am__:",
-                                                                value=response["overall am"],
+                                                                value=response[
+                                                                    "overall am"
+                                                                ],
                                                                 inline=False,
                                                             )
                                                             embed.add_field(
@@ -381,10 +415,14 @@ class Noms(commands.Cog):
                                                                 content="your final picks are listed as follows:",
                                                                 embed=embed,
                                                             )
-                                                            channel = self.bot.get_channel(
-                                                                846822917627052092
+                                                            channel = (
+                                                                self.bot.get_channel(
+                                                                    846822917627052092
+                                                                )
                                                             )
-                                                            await channel.send(embed=embed)
+                                                            await channel.send(
+                                                                embed=embed
+                                                            )
                                                             embed = discord.Embed(
                                                                 title="thank you for your submission!",
                                                                 description="your submission is only visible to our admins and our anonymous judges panel.",
