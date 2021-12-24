@@ -8,7 +8,7 @@ import traceback
 intents = discord.Intents.all()
 intents.members = True
 
-game = discord.Activity(name="i'm back from the dead", type=discord.ActivityType.playing)
+game = discord.Activity(name="don't dm toby for reports", type=discord.ActivityType.playing)
 bot = commands.Bot(command_prefix=commands.when_mentioned_or('r!'), intents=intents, activity=game)
 bot.remove_command('help')
 
