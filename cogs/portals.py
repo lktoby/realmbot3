@@ -7,7 +7,6 @@ from discord.ext import commands
 log = logging.getLogger(__name__)
 
 pcount = 0
-hcount = 0
 
 
 class Portals(commands.Cog):
@@ -21,7 +20,7 @@ class Portals(commands.Cog):
 
     @add.command(name="pm")
     async def pm_subcommand(self, ctx: commands.Context, emoji, pname, num):
-        global pcount, hcount
+        global pcount
         if ctx.guild.id == 763124398046969897:  # realm 1
             category = ctx.guild.get_channel(778633618691850250)
             channel = await ctx.guild.create_text_channel(
@@ -46,18 +45,10 @@ class Portals(commands.Cog):
             await ctx.send(f"{channel.mention} has been created.")
             log.info(f"new channel {channel.id} has been created.")
             pcount += 1
-        elif ctx.guild.id == 840406812423094272:  # head realm
-            category = ctx.guild.get_channel(843544254579474513)
-            channel = await ctx.guild.create_text_channel(
-                name=f"{emoji}・{pname}・{num}", category=category
-            )
-            await ctx.send(f"{channel.mention} has been created.")
-            log.info(f"new channel {channel.id} has been created.")
-            hcount += 1
 
     @add.command(name="am")
     async def am_subcommand(self, ctx, emoji, pname, num):
-        global pcount, hcount
+        global pcount
         if ctx.guild.id == 763124398046969897:  # realm 1
             category = ctx.guild.get_channel(812098840802623488)
             channel = await ctx.guild.create_text_channel(
@@ -82,18 +73,10 @@ class Portals(commands.Cog):
             await ctx.send(f"{channel.mention} has been created.")
             log.info(f"new channel {channel.id} has been created.")
             pcount += 1
-        elif ctx.guild.id == 840406812423094272:  # head realm
-            category = ctx.guild.get_channel(843544276691320863)
-            channel = await ctx.guild.create_text_channel(
-                name=f"{emoji}・{pname}・{num}", category=category
-            )
-            await ctx.send(f"{channel.mention} has been created.")
-            log.info(f"new channel {channel.id} has been created.")
-            hcount += 1
 
     @add.command(name="both")
     async def both_subcommand(self, ctx: commands.Context, emoji, pname, num):
-        global pcount, hcount
+        global pcount
         if ctx.guild.id == 763124398046969897:  # realm 1
             category = ctx.guild.get_channel(773916338002722817)
             channel = await ctx.guild.create_text_channel(
@@ -118,21 +101,13 @@ class Portals(commands.Cog):
             await ctx.send(f"{channel.mention} has been created.")
             log.info(f"new channel {channel.id} has been created.")
             pcount += 1
-        elif ctx.guild.id == 840406812423094272:  # head realm
-            category = ctx.guild.get_channel(860269639664664597)
-            channel = await ctx.guild.create_text_channel(
-                name=f"{emoji}・{pname}・{num}", category=category
-            )
-            await ctx.send(f"{channel.mention} has been created.")
-            log.info(f"new channel {channel.id} has been created.")
-            hcount += 1
 
     @add.command(name="nsfw")
     @commands.has_role(828588365674315777)
     async def nsfw_subcommand(
         self, ctx: commands.Context, emoji, pname, num
     ):  # r!add nsfw emoji name number
-        global pcount, hcount
+        global pcount
         if ctx.guild == 792101190154453043:
             channel = await ctx.guild.create_text_channel(
                 name=f"{emoji}・{pname}・{num}",
@@ -142,15 +117,6 @@ class Portals(commands.Cog):
             await ctx.send(f"{channel.mention} has been created.")
             log.info(f"new nsfw channel {channel.id} has been created.")
             pcount += 1
-        elif ctx.guild == 840406812423094272:
-            channel = await ctx.guild.create_text_channel(
-                name=f"{emoji}・{pname}・{num}",
-                category=ctx.guild.get_channel(845489191710097458),
-                nsfw=True,
-            )
-            await ctx.send(f"{channel.mention} has been created.")
-            log.info(f"new nsfw channel {channel.id} has been created.")
-            hcount += 1
 
     @add.error
     async def add_error(self, ctx: commands.Context, error, param):
@@ -172,10 +138,6 @@ class Portals(commands.Cog):
             await channel.delete()
             await ctx.send("channel successfully deleted.")
             pcount -= 1
-        elif ctx.guild == 840406812423094272:
-            global hcount
-            await channel.delete()
-            await ctx.send("channel successfully deleted.")
 
     @delete.error
     async def delete_error(self, ctx: commands.Context, error):

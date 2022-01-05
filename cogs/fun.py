@@ -18,6 +18,7 @@ class Fun(commands.Cog):
             self.bot.loop.create_task(self.session.close())
 
     # roast
+    '''
     @commands.command(name="roast")
     async def roast(self, ctx: commands.Context, target: discord.Member, *, msg: str):
         roastable = [
@@ -63,6 +64,7 @@ class Fun(commands.Cog):
             )
             await ctx.send(embed=embed)
         log.error(f"roast command ran into an error: {error}")
+        '''
 
     # dog pics (thedogapi)
     @commands.command()
@@ -146,7 +148,7 @@ class Fun(commands.Cog):
         ) as res:
             if res.status != 200:
                 return await ctx.send("something went wrong, try again!")
-            image = res.url
+            image = str(res.url)
         embed = discord.Embed(title=f"generated colour hex: {str(randhex)}", color=randhex)
         embed.set_thumbnail(url=image)
         await ctx.send(embed=embed)

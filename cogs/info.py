@@ -56,11 +56,13 @@ class Info(commands.Cog):
         embed = discord.Embed(
             title="commands available",
             description="`r!help` - shows a brief description for realm bot\n`r!userinfo` - shows "
-            "information about a user\n`r!serverinfo` - shows information about this "
-            "server\n`r!inviteinfo` - shows information about an invite\nrun `r!help "
-            "[name of command]` to see detailed usage of each command\narguments marked "
-            "in <> are required arguments, while arguments marked in [] are optional "
-            "arguments",
+                                          "information about a user\n`r!serverinfo` - shows information about this "
+                                          "server\n`r!inviteinfo` - shows information about an invite\nrun `r!help "
+                                          "[name of command]` to see detailed usage of each command\narguments marked "
+                                          "in <> are required arguments, while arguments marked in [] are optional "
+                                          "arguments\n\n`r!dog` - gives a random dog picture\n`r!cat` - gives a "
+                                          "random cat picture\n`r!aesthetic` - generates a random "
+                                          "aesthetic\n`r!color` - generates a random color",
             color=0xFDFD96,
         )
         embed.set_footer(

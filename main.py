@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 
 log = logging.getLogger(__name__)
 
-game = discord.Activity(name="i'm back from the dead", type=discord.ActivityType.playing)
+game = discord.Activity(name="dm postals not toby", type=discord.ActivityType.playing)
 bot = commands.Bot(
     command_prefix=commands.when_mentioned_or("r!"), intents=discord.Intents.all(), activity=game
 )
@@ -26,10 +26,7 @@ async def on_ready():
     print_msg = [
         f"logged in as {bot.user.name}",
         f"i am developed by toby#0508 ",
-        f"Prefix: r!",
-        "Connected to:",
-        f"{len(bot.guilds)} servers",
-        f"Invite URL: https://discord.com/oauth2/authorize?client_id={bot.user.id}&scope=bot+applications.commands&permissions=0",
+        f"Prefix: r!"
     ]
     WIDTH = len(max(print_msg, key=len))
     print_msg = [s.center(WIDTH) for s in print_msg]
@@ -37,7 +34,7 @@ async def on_ready():
     rich.print("\n".join(print_msg))
 
 
-initial_extensions = ["cogs.info", "cogs.portals", "cogs.noms", "cogs.fun"]
+initial_extensions = ["cogs.info", "cogs.portals", "cogs.fun"]
 
 if __name__ == "__main__":
     for extension in initial_extensions:
