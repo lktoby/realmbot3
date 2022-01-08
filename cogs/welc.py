@@ -15,13 +15,14 @@ class Welcome(commands.Cog):
                         "portal﹐<#763142159800860723>\n<:w_heart:926356363381211196>　owner "
                         "tools﹐<#811343776646955089>",color=0x2f3136)
         count = str(member.guild.member_count)
-        ordinal = "th"
-        if count[-1] == 1:
+        if count[-1] == "1":
             ordinal = "st"
-        elif count[-1] == 2:
+        elif count[-1] == "2":
             ordinal = "nd"
-        elif count[-1] == 3:
+        elif count[-1] == "3":
             ordinal = "rd"
+        else:
+            ordinal = "th"
         embed.set_image(url="https://i.ibb.co/tpwzv2D/c83b06c6cd6c509e4b59260e3fc405b0.png")
         embed.set_footer(text=f"・ you are our {member.guild.member_count}{ordinal} member!")
         channel = member.guild.get_channel(929200029833502740)
