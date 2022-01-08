@@ -84,7 +84,7 @@ class Info(commands.Cog):
             color=0xFDFD96,
             timestamp=datetime.datetime.utcnow(),
         )
-        embed.set_footer(text="developed by toby#0508 ; version 0.0.7")
+        embed.set_footer(text="developed by toby#0508 ; version 0.0.8")
         await ctx.send(embed=embed)
 
     @help_group.command(name="list", aliases=["cmds", "commands"])  # r!help list

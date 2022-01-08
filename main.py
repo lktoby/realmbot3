@@ -34,7 +34,7 @@ async def on_ready():
     rich.print("\n".join(print_msg))
 
 
-initial_extensions = ["cogs.info", "cogs.portals", "cogs.fun"]
+initial_extensions = ["cogs.info", "cogs.portals", "cogs.fun", "cogs.welc"]
 
 if __name__ == "__main__":
     for extension in initial_extensions:
