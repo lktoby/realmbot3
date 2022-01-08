@@ -49,7 +49,7 @@ class Info(commands.Cog):
     @guide.error
     async def guide_error(self, ctx: commands.Context, error):
         if isinstance(error, commands.MissingAnyRole):
-            ctx.send("this command isn't for you >:(")
+            await ctx.send("this command isn't for you >:(")
 
     @commands.command(name="list")  # r!list
     async def _list(self, ctx: commands.Context):
@@ -62,7 +62,7 @@ class Info(commands.Cog):
                                           "in <> are required arguments, while arguments marked in [] are optional "
                                           "arguments\n\n`r!dog` - gives a random dog picture\n`r!cat` - gives a "
                                           "random cat picture\n`r!aesthetic` - generates a random "
-                                          "aesthetic\n`r!color` - generates a random color",
+                                          "aesthetic\n`r!color` - generates a random color\n`r!cb` - puts text into codeblock",
             color=0xFDFD96,
         )
         embed.set_footer(
@@ -162,17 +162,17 @@ class Info(commands.Cog):
         )
         await ctx.send(embed=embed)
 
-    @help_group.command(name="portals", aliases=["count"])  # r!help guide
-    async def portals_subcommand(self, ctx: commands.Context):
+    @help_group.command(name='codeblock', aliases=['cb'])
+    async def codeblock_subcommand(self, ctx: commands.Context):
         embed = discord.Embed(
-            title="portals <apm/head/realm1/realm2/nsfw/all>",
-            description="shows how many portals we have listed",
-            color=0xFDFD96,
+            title="codeblock <text to be put in cb>",
+            description="puts text you entered into a codeblock",
+            color=0xfdfd96
         )
-        embed.add_field(name="aliases", value="count", inline=False)
+        embed.add_field(name="aliases", value="cb", inline=False)
         embed.set_footer(
             text=f"summoned by {ctx.message.author}",
-            icon_url=ctx.message.author.avatar_url,
+            icon_url=ctx.message.author.avatar_url
         )
         await ctx.send(embed=embed)
 

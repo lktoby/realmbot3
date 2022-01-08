@@ -153,6 +153,18 @@ class Fun(commands.Cog):
         embed.set_thumbnail(url=image)
         await ctx.send(embed=embed)
 
+    # codeblock command
+    @commands.command(name="codeblock", aliases=['cb'])
+    async def codeblock(self, ctx: commands.Context, *, content):
+        await ctx.send(f"```{content}```")
+
+    @codeblock.error
+    async def codeblock_error(self, ctx: commands.Context, error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            embed = discord.Embed(title="insert something to be put in codeblock", color=0xff4747)
+            await ctx.send(embed=embed)
+        print(error)
+
 
 def setup(bot):
     bot.add_cog(Fun(bot))
