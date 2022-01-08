@@ -6,7 +6,7 @@ class Welcome(commands.Cog):
         self.bot = bot
 
     @commands.Cog.listener()
-    async def on_member_join(self, member):
+    async def on_member_join(self, member: discord.Member):
         print(f"{member.name} joined, id: {member.id}")
         embed = discord.Embed(
             description="〈<a:1_shibawave:929201546917458041>〉<@&765984584068235345> ! \n<:w_heart:929202901874790440> "
@@ -25,7 +25,7 @@ class Welcome(commands.Cog):
         embed.set_image(url="https://i.ibb.co/tpwzv2D/c83b06c6cd6c509e4b59260e3fc405b0.png")
         embed.set_footer(text=f"・ you are our {member.guild.member_count}{ordinal} member!")
         channel = member.guild.get_channel(929200029833502740)
-        await channel.send(content=f"{member.mention}", embed=embed)
+        await channel.send(f"{member.mention}", embed=embed)
 
 
 def setup(bot):
