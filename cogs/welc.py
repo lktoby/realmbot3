@@ -9,7 +9,7 @@ class Welcome(commands.Cog):
     async def on_member_join(self, member: discord.Member):
         print(f"{member.name} joined, id: {member.id}")
         embed = discord.Embed(
-            description="〈<a:1_shibawave:929201546917458041>〉<@&765984584068235345> ! \n<:w_heart:929202901874790440> "
+            description="〈<a:1_shibawave:929201546917458041>〉<@&765984584068235345> \n<:w_heart:929202901874790440> "
                         " ⬩  **verify**﹐ <#763138974163795972> !*!*\n\n##　get pings & "
                         "access﹐<#763139066371244052>\n—　 add your "
                         "portal﹐<#763142159800860723>\n<:w_heart:926356363381211196>　owner "
