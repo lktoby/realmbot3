@@ -2,3 +2,5 @@ rich
 discord.py
 python-dotenv
 pbwrap
+discord-py-slash-command
+captcha
