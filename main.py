@@ -2,20 +2,37 @@ import logging
 import os
 import sys
 import traceback
+from datetime import datetime
 
 import discord
 import rich
 from discord.ext import commands
 from dotenv import load_dotenv
+from discord_slash import SlashCommand
 
 log = logging.getLogger(__name__)
+
+# Logs to ./logs folder on every boot
+
+now = datetime.now()
+dt_string = now.strftime("%d-%m-%Y %H:%M:%S")
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        logging.FileHandler(f"logs/{dt_string}.log"),
+        logging.StreamHandler(sys.stdout)
+    ]
+)
+
 
 game = discord.Activity(name="dm postals not toby", type=discord.ActivityType.playing)
 bot = commands.Bot(
     command_prefix=commands.when_mentioned_or("r!"), intents=discord.Intents.all(), activity=game
 )
 bot.remove_command("help")
-
+slash = SlashCommand(bot, sync_commands=True)
 
 load_dotenv()
 TOKEN = os.getenv("TOKEN")
@@ -34,7 +51,7 @@ async def on_ready():
     rich.print("\n".join(print_msg))
 
 
-initial_extensions = ["cogs.info", "cogs.portals", "cogs.fun", "cogs.welc"]
+initial_extensions = ["cogs.info", "cogs.portals", "cogs.fun", "cogs.welc", "cogs.verification"]
 
 if __name__ == "__main__":
     for extension in initial_extensions:
